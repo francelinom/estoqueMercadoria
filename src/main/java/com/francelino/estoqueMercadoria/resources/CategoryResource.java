@@ -1,6 +1,6 @@
 package com.francelino.estoqueMercadoria.resources;
 
-import com.francelino.estoqueMercadoria.entities.Category;
+import com.francelino.estoqueMercadoria.dto.CategoryDTO;
 import com.francelino.estoqueMercadoria.services.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -20,8 +20,8 @@ public class CategoryResource {
 
 
     @GetMapping
-    public ResponseEntity<List<Category>> findAll() {
-        List<Category> list = service.findAll();
+    public ResponseEntity<List<CategoryDTO>> findAll() {
+        List<CategoryDTO> list = service.findAll();
         return ResponseEntity.ok().body(list);
     }
 }
