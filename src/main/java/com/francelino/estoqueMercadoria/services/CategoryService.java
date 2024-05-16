@@ -3,6 +3,7 @@ package com.francelino.estoqueMercadoria.services;
 import com.francelino.estoqueMercadoria.dto.CategoryDTO;
 import com.francelino.estoqueMercadoria.entities.Category;
 import com.francelino.estoqueMercadoria.repositories.CategoryRepository;
+import com.francelino.estoqueMercadoria.services.exceptions.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,7 +28,8 @@ public class CategoryService {
     @Transactional(readOnly = true)
     public CategoryDTO findById(Long id) {
         Optional<Category> objCategory = categoryRepository.findById(id);
-        Category categoryEntity = objCategory.get();
+        Category categoryEntity = objCategory.orElseThrow(() -> new EntityNotFoundException("Entity not found." +
+                "."));
         return new CategoryDTO(categoryEntity);
     }
 }
