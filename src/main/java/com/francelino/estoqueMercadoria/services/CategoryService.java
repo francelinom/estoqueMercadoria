@@ -28,8 +28,8 @@ public class CategoryService {
     @Transactional(readOnly = true)
     public CategoryDTO findById(Long id) {
         Optional<Category> objCategory = categoryRepository.findById(id);
-        Category categoryEntity = objCategory.orElseThrow(() -> new EntityNotFoundException("Entity not found." +
-                "."));
+        Category categoryEntity = objCategory
+                .orElseThrow(() -> new EntityNotFoundException("Entity not found."));
         return new CategoryDTO(categoryEntity);
     }
 }
