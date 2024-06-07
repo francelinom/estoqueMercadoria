@@ -3,9 +3,12 @@ package com.francelino.estoqueMercadoria.services;
 import com.francelino.estoqueMercadoria.dto.CategoryDTO;
 import com.francelino.estoqueMercadoria.entities.Category;
 import com.francelino.estoqueMercadoria.repositories.CategoryRepository;
+import com.francelino.estoqueMercadoria.services.exceptions.DataBaseException;
 import com.francelino.estoqueMercadoria.services.exceptions.ResourceNotFoundException;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -51,6 +54,19 @@ public class CategoryService {
             return new CategoryDTO(category);
         } catch (EntityNotFoundException e) {
             throw new ResourceNotFoundException("Id not found. " + id);
+        }
+    }
+
+    public void delete(Long id) {
+        try {
+            if (!categoryRepository.existsById(id)) {
+                throw new ResourceNotFoundException("Id not found. " + id);
+            }
+            categoryRepository.deleteById(id);
+        } catch (EmptyResultDataAccessException e) {
+            throw new ResourceNotFoundException("Id not found. " + id);
+        } catch (DataIntegrityViolationException e) {
+            throw new DataBaseException("Integrity violation");
         }
     }
 }
