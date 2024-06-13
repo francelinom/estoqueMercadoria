@@ -26,7 +26,7 @@ public class Category implements Serializable {
     private Instant updatedAt;
 
     @ManyToMany(mappedBy = "categories")
-    private Set<Category> subcategories = new HashSet<>();
+    private Set<Product> subcategories = new HashSet<>();
 
     public Category() {
     }
@@ -75,7 +75,7 @@ public class Category implements Serializable {
         this.updatedAt = updatedAt;
     }
 
-    public Set<Category> getSubcategories() {
+    public Set<Product> getSubcategories() {
         return subcategories;
     }
 
