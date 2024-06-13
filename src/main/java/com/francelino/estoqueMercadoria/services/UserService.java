@@ -3,6 +3,7 @@ package com.francelino.estoqueMercadoria.services;
 
 import com.francelino.estoqueMercadoria.dto.RoleDTO;
 import com.francelino.estoqueMercadoria.dto.UserDTO;
+import com.francelino.estoqueMercadoria.dto.UserInsertDTO;
 import com.francelino.estoqueMercadoria.entities.Role;
 import com.francelino.estoqueMercadoria.entities.User;
 import com.francelino.estoqueMercadoria.repositories.RoleRepository;
@@ -15,6 +16,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,6 +24,9 @@ import java.util.Optional;
 
 @Service
 public class UserService {
+
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
 
     @Autowired
     private UserRepository userRepository;
@@ -45,9 +50,10 @@ public class UserService {
     }
 
     @Transactional
-    public UserDTO insert(UserDTO userDTO) {
+    public UserDTO insert(UserInsertDTO userDTO) {
         User user = new User();
         copyDtoToEntity(userDTO, user);
+        user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
         user = userRepository.save(user);
         return new UserDTO(user);
     }
