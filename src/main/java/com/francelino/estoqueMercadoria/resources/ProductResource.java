@@ -2,6 +2,7 @@ package com.francelino.estoqueMercadoria.resources;
 
 import com.francelino.estoqueMercadoria.dto.ProductDTO;
 import com.francelino.estoqueMercadoria.services.ProductService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -40,7 +41,7 @@ public class ProductResource {
 
 
     @PostMapping
-    public ResponseEntity<ProductDTO> insert(@RequestBody ProductDTO ProductDTO) {
+    public ResponseEntity<ProductDTO> insert(@Valid @RequestBody ProductDTO ProductDTO) {
         ProductDTO = service.insert(ProductDTO);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")
@@ -50,7 +51,7 @@ public class ProductResource {
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<ProductDTO> update(@PathVariable Long id, @RequestBody ProductDTO ProductDTO) {
+    public ResponseEntity<ProductDTO> update(@PathVariable Long id, @Valid @RequestBody ProductDTO ProductDTO) {
         ProductDTO = service.update(id, ProductDTO);
         return ResponseEntity.ok().body(ProductDTO);
     }
