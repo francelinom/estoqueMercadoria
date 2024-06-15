@@ -1,6 +1,8 @@
 package com.francelino.estoqueMercadoria.dto;
 
 import com.francelino.estoqueMercadoria.entities.Category;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 import java.io.Serializable;
 
@@ -8,6 +10,9 @@ public class CategoryDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private Long id;
+
+    @Size(min = 3, max = 80, message = "O nome deve ter entre 3 e 80 caracteres")
+    @NotBlank(message = "O nome é obrigatório")
     private String name;
 
     public CategoryDTO() { }

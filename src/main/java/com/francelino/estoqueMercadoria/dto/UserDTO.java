@@ -1,6 +1,9 @@
 package com.francelino.estoqueMercadoria.dto;
 
 import com.francelino.estoqueMercadoria.entities.User;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 import java.io.Serializable;
 import java.util.HashSet;
@@ -10,8 +13,16 @@ public class UserDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private Long id;
+
+    @Size(min = 3, max = 20, message = "O nome deve ter entre 3 e 20 caracteres")
+    @NotBlank(message = "Campo primeiro nome é obrigatório")
     private String firstName;
+
+    @Size(min = 3, max = 50, message = "O sobrenome deve ter entre 3 e 50 caracteres")
+    @NotBlank(message = "Campo sobrenome é obrigatório")
     private String lastName;
+
+    @Email(message = "Por favor, informe um email válido")
     private String email;
 
     Set<RoleDTO> roles = new HashSet<>();
