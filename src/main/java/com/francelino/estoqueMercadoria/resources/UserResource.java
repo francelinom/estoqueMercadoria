@@ -3,6 +3,7 @@ package com.francelino.estoqueMercadoria.resources;
 
 import com.francelino.estoqueMercadoria.dto.UserDTO;
 import com.francelino.estoqueMercadoria.dto.UserInsertDTO;
+import com.francelino.estoqueMercadoria.dto.UserUpdateDTO;
 import com.francelino.estoqueMercadoria.services.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,9 +49,9 @@ public class UserResource {
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<UserDTO> update(@PathVariable Long id, @Valid @RequestBody UserDTO userDTO) {
-        userDTO = service.update(id, userDTO);
-        return ResponseEntity.ok().body(userDTO);
+    public ResponseEntity<UserDTO> update(@PathVariable Long id, @Valid @RequestBody UserUpdateDTO userDTO) {
+        UserDTO newUserDTO = service.update(id, userDTO);
+        return ResponseEntity.ok().body(newUserDTO);
     }
 
     @DeleteMapping(value = "/{id}")

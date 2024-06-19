@@ -4,6 +4,7 @@ package com.francelino.estoqueMercadoria.services;
 import com.francelino.estoqueMercadoria.dto.RoleDTO;
 import com.francelino.estoqueMercadoria.dto.UserDTO;
 import com.francelino.estoqueMercadoria.dto.UserInsertDTO;
+import com.francelino.estoqueMercadoria.dto.UserUpdateDTO;
 import com.francelino.estoqueMercadoria.entities.Role;
 import com.francelino.estoqueMercadoria.entities.User;
 import com.francelino.estoqueMercadoria.repositories.RoleRepository;
@@ -60,7 +61,7 @@ public class UserService {
     }
 
     @Transactional
-    public UserDTO update(Long id, UserDTO userDTO) {
+    public UserDTO update(Long id, UserUpdateDTO userDTO) {
         try {
             User user = userRepository.getOne(id);
             copyDtoToEntity(userDTO, user);
